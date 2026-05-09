@@ -7,7 +7,7 @@ import wedding from "@/assets/event-wedding.jpg";
 import member1 from "@/assets/member-1.jpeg";
 import member2 from "@/assets/member-2.jpeg";
 import member3 from "@/assets/member-3.jpeg";
-import member4 from "@/assets/member-4.png";
+import member4 from "@/assets/member-4.PNG";
 import yacht from "@/assets/event-yacht.jpg";
 import birthday from "@/assets/event-birthday.jpg";
 import celeb from "@/assets/event-celebrity.jpg";
