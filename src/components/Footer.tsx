@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
-import { Instagram, Facebook, Mail, Phone } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, Youtube } from "lucide-react";
 
 export function Footer() {
   return (
@@ -13,11 +13,18 @@ export function Footer() {
               Crafting unforgettable luxury experiences across India and the world — from intimate yacht surprises to royal celebrity weddings.
             </p>
             <div className="mt-6 flex gap-3">
-              {[Instagram, Facebook, Mail].map((Icon, i) => (
-                <a key={i} href="#" className="grid h-10 w-10 place-items-center rounded-full border border-gold text-gold hover:bg-gradient-gold hover:text-background transition-colors">
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
+              <a href="https://www.instagram.com/sk___events22?igsh=M3VtYXZ4ZmxzMDEy&utm_source=qr" target="_blank" rel="noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-gold text-gold hover:bg-gradient-gold hover:text-background transition-colors">
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a href="https://www.facebook.com/share/18qb8AjujQ/?mibextid=wwXIfr" target="_blank" rel="noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-gold text-gold hover:bg-gradient-gold hover:text-background transition-colors">
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a href="https://youtube.com/@sk_22-x7q?si=54eJ1Tb5NiUPzrRL" target="_blank" rel="noreferrer" className="grid h-10 w-10 place-items-center rounded-full border border-gold text-gold hover:bg-gradient-gold hover:text-background transition-colors">
+                <Youtube className="h-4 w-4" />
+              </a>
+              <a href="mailto:skeventsmanagement28@gmail.com" className="grid h-10 w-10 place-items-center rounded-full border border-gold text-gold hover:bg-gradient-gold hover:text-background transition-colors">
+                <Mail className="h-4 w-4" />
+              </a>
             </div>
           </div>
           <div>

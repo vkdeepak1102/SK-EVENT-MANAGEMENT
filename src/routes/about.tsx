@@ -29,9 +29,13 @@ const team = [
   { name: "Padma", role: "Event Marketing Specialist", desc: "Storyteller in chief, weaving narratives that travel further than the night.", img: member2 },
   { name: "Sugirtha Paul Ruban", role: "Trade Manager", desc: "Curates the finest artisans, fabrics and florals from across the world.", img: member4 },
   { name: "Naveen Mariappan", role: "Co-Producer", desc: "The conductor of cinematic moments — lighting, sound, sequence, soul." },
-  { name: "Rukhsana Mohammed Jafer Shaikh", role: "Goa Manager", desc: "Mistress of beach soirées, sunset weddings, and yacht reveries." },
-  { name: "Vinitha Naresh Sahani", role: "Mumbai Manager", desc: "Champion of skyline glamour and celebrity-grade discretion." },
+  { name: "Ankita", role: "Mumbai Manager", desc: "Champion of skyline glamour and celebrity-grade discretion." },
   { name: "Harsha Gopala Krishnan", role: "Chennai Manager", desc: "Guardian of southern elegance — temple traditions touched by gold." },
+  { name: "Pooja", role: "Executive · Goa", desc: "Bringing warmth and elegance to every coastal celebration in Goa." },
+  { name: "Jasmine", role: "Executive · Mumbai", desc: "Crafting dream events with meticulous attention and passion in Mumbai." },
+  { name: "Priya", role: "Executive · Mumbai", desc: "Turning visions into extraordinary realities with grace and detail." },
+  { name: "Sajitha", role: "Fashion Coordinator · Mumbai", desc: "Dressing every event in curated style — where fashion meets celebration." },
+  { name: "Preetha", role: "Marketing Executive · Goa", desc: "Amplifying the magic of every event through thoughtful storytelling." },
 ];
 
 function Initial({ name }: { name: string }) {

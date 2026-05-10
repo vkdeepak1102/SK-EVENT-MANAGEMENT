@@ -4,7 +4,7 @@ import { PageShell } from "@/components/PageShell";
 import { SectionTitle } from "@/components/SectionTitle";
 import { Reveal } from "@/components/Reveal";
 import villa from "@/assets/event-villa.jpg";
-import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook, Youtube } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -93,6 +93,21 @@ function ContactPage() {
                 ))}
               </div>
 
+
+              <div className="rounded-3xl bg-card border border-border p-8">
+                <h4 className="text-[10px] tracking-[0.35em] uppercase text-gold mb-5">Follow Us</h4>
+                <div className="flex gap-3">
+                  <a href="https://www.instagram.com/sk___events22?igsh=M3VtYXZ4ZmxzMDEy&utm_source=qr" target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-full border border-gold px-4 py-2 text-xs tracking-[0.25em] uppercase text-gold hover:bg-gradient-gold hover:text-background transition-all">
+                    <Instagram className="h-4 w-4" /> Instagram
+                  </a>
+                  <a href="https://www.facebook.com/share/18qb8AjujQ/?mibextid=wwXIfr" target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-full border border-gold px-4 py-2 text-xs tracking-[0.25em] uppercase text-gold hover:bg-gradient-gold hover:text-background transition-all">
+                    <Facebook className="h-4 w-4" /> Facebook
+                  </a>
+                  <a href="https://youtube.com/@sk_22-x7q?si=54eJ1Tb5NiUPzrRL" target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-full border border-gold px-4 py-2 text-xs tracking-[0.25em] uppercase text-gold hover:bg-gradient-gold hover:text-background transition-all">
+                    <Youtube className="h-4 w-4" /> YouTube
+                  </a>
+                </div>
+              </div>
 
             </div>
           </Reveal>
