@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { PageShell } from "@/components/PageShell";
 import { SectionTitle } from "@/components/SectionTitle";
 import { Reveal } from "@/components/Reveal";
 import villa from "@/assets/event-villa.jpg";
 import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook, Youtube, Loader2, CheckCircle2, XCircle } from "lucide-react";
+
+const EMAILJS_SERVICE_ID  = "service_kdy5edn";
+const EMAILJS_TEMPLATE_ID = "template_jvkjj0s";
+const EMAILJS_PUBLIC_KEY  = "mXZqBVbJXOGIQrWr0";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -20,41 +25,29 @@ type Status = "idle" | "loading" | "success" | "error";
 
 function ContactPage() {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!formRef.current) return;
     setStatus("loading");
-
-    const form = e.currentTarget;
-    const data = {
-      access_key: "eada38f8-5793-4a14-98c6-f4fd36ef2d81",
-      subject: "✨ New Enquiry — SK Events & Management",
-      from_name: "SK Events Website",
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      event_date: (form.elements.namedItem("event_date") as HTMLInputElement).value,
-      event_type: (form.elements.namedItem("event_type") as HTMLSelectElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
-      botcheck: "",
-    };
+    setErrorMsg("");
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(data),
-      });
-      const json = await res.json();
-      if (json.success) {
-        setStatus("success");
-        formRef.current?.reset();
-      } else {
-        setStatus("error");
-      }
-    } catch {
+      const result = await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+      console.log("EmailJS success:", result.text);
+      setStatus("success");
+      formRef.current.reset();
+    } catch (err: any) {
+      console.error("EmailJS error:", err);
       setStatus("error");
+      setErrorMsg(err?.text || err?.message || "Unknown error. Please try WhatsApp.");
     }
   }
 
@@ -119,9 +112,6 @@ function ContactPage() {
                   <textarea name="message" rows={4} className="mt-2 w-full rounded-lg border border-border bg-background/60 px-4 py-3 font-serif text-base outline-none focus:border-gold focus:shadow-glow" />
                 </label>
 
-                {/* Honeypot spam field */}
-                <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
-
                 {/* Submit Button */}
                 <button
                   type="submit"
@@ -129,13 +119,13 @@ function ContactPage() {
                   className="shimmer mt-2 w-full rounded-full bg-gradient-gold px-6 py-4 text-xs tracking-[0.35em] uppercase text-background shadow-gold disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
                 >
                   {status === "loading" && <Loader2 className="h-4 w-4 animate-spin" />}
-                  {status === "idle" && "Send Whisper"}
+                  {status === "idle"    && "Send Whisper"}
                   {status === "loading" && "Sending…"}
                   {status === "success" && "✦ We'll be in touch ✦"}
-                  {status === "error" && "Try Again"}
+                  {status === "error"   && "Try Again"}
                 </button>
 
-                {/* Success Message */}
+                {/* Success */}
                 {status === "success" && (
                   <div className="flex items-start gap-3 rounded-2xl border border-green-500/30 bg-green-500/10 px-5 py-4">
                     <CheckCircle2 className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
@@ -146,13 +136,13 @@ function ContactPage() {
                   </div>
                 )}
 
-                {/* Error Message */}
+                {/* Error */}
                 {status === "error" && (
                   <div className="flex items-start gap-3 rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4">
                     <XCircle className="h-5 w-5 text-red-400 mt-0.5 shrink-0" />
                     <div>
                       <p className="text-sm font-semibold text-red-400">Something went wrong</p>
-                      <p className="mt-1 text-xs text-red-400/80 font-serif">Please try again or reach us directly via WhatsApp.</p>
+                      <p className="mt-1 text-xs text-red-400/80 font-serif">{errorMsg || "Please try again or reach us directly via WhatsApp."}</p>
                     </div>
                   </div>
                 )}
@@ -178,12 +168,14 @@ function ContactPage() {
 
               <div className="rounded-3xl bg-card border border-border p-8 grid gap-5">
                 {[
-                  { I: Phone, l: "Call", v: "+91 7904315874", href: "tel:+917904315874" },
-                  { I: Mail, l: "Write", v: "skeventsmanagement28@gmail.com", href: "mailto:skeventsmanagement28@gmail.com" },
+                  { I: Phone,  l: "Call",  v: "+91 7904315874",                   href: "tel:+917904315874" },
+                  { I: Mail,   l: "Write", v: "skeventsmanagement28@gmail.com",   href: "mailto:skeventsmanagement28@gmail.com" },
                   { I: MapPin, l: "Visit", v: "12, Boat Club Road, Chennai 600028", href: "#" },
                 ].map((c) => (
                   <a key={c.l} href={c.href} className="flex items-start gap-4 group">
-                    <div className="grid h-11 w-11 place-items-center rounded-full bg-gradient-gold text-background shrink-0"><c.I className="h-4 w-4" /></div>
+                    <div className="grid h-11 w-11 place-items-center rounded-full bg-gradient-gold text-background shrink-0">
+                      <c.I className="h-4 w-4" />
+                    </div>
                     <div>
                       <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">{c.l}</div>
                       <div className="mt-1 font-serif text-lg group-hover:text-gold transition-colors">{c.v}</div>
